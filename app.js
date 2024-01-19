@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var favicon = require('serve-favicon'); // Import serve-favicon module
+var BicicletasAPIRouter = require('./routes/api/bicicleta');
+
 
 // Route handlers
 var indexRouter = require('./routes/index');
@@ -21,6 +23,7 @@ app.set('view engine', 'pug');
 // Serve favicon
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+
 // Logger, JSON, URL-Encoded, and Cookie Parser middleware
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/bicicleta', BicicletasAPIRouter); 
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -49,5 +53,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
